@@ -1,0 +1,9 @@
+CREATE TABLE "links" (
+	"id" text PRIMARY KEY NOT NULL,
+	"url" text NOT NULL,
+	"short_url" text NOT NULL,
+	"access_count" text DEFAULT '0' NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp,
+	CONSTRAINT "links_short_url_unique" UNIQUE("short_url")
+);
