@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'server/**'
+    
   pull_request:
     branches:
       - master
@@ -46,7 +45,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "pnpm"
+          cache: pnpm
+          cache-dependency-path: server/pnpm-lock.yaml
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run test
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: server
+        
+      - name: Run test
+        run: pnpm run test
+        working-directory: server
