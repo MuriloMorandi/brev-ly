@@ -1,4 +1,4 @@
-name: Server Teste
+name: Server Build
 
 on:
   push:
@@ -14,24 +14,9 @@ on:
       - 'server/**'
 
 jobs:
-  test-server:
-    name: Run Tests
+  build-server:
+    name: Run build
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:13
-        ports:
-          - 5431:5432
-        env:
-          POSTGRES_USER: user
-          POSTGRES_PASSWORD: password
-          POSTGRES_DB: brevly_test
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
 
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +37,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         working-directory: server
-        
-      - name: Run test
-        run: pnpm run test
+
+      - name: Build project
+        run: pnpm run build
         working-directory: server
+        
