@@ -1,9 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod/v4";
+import { api } from "../libs/api";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { api } from "../libs/api";
 
 const createLinkSchema = z.object({
     url: z.url(),
@@ -24,7 +24,6 @@ export function LinkForm() {
     })
 
     const handleForm = (data: CreateLinkSchema)=>{
-        console.log(data)
         api.post('links', data).then(()=>{
             reset()
         }).catch((erro)=>{
@@ -56,7 +55,6 @@ export function LinkForm() {
 
                 <Button
                     typeButton="primary"
-                    className=""
                     aria-label="Salvar link"
                     type="submit"
                 />

@@ -12,6 +12,7 @@ const buttonVariants = tv({
         h-[48px]
         w-full
         text-md
+        gap-1
     `,  
     variants: {
         typeButton: {
@@ -28,12 +29,13 @@ const buttonVariants = tv({
 })
 
 type ButtonProps = ComponentProps<"button"> &
-    VariantProps<typeof buttonVariants> & {
-        asChild?: boolean;
-        
-};
+    VariantProps<typeof buttonVariants> & 
+    {
+        children?: React.ReactNode
+    };
     
 export function Button({
+    children,
     typeButton,
     disabled,
     className,
@@ -44,6 +46,7 @@ export function Button({
             className={buttonVariants({ typeButton, disabled, className })}
             {...props}
         >
+            {children}
             <span>{props["aria-label"]}</span>
         </button>
     )
