@@ -3,4 +3,51 @@
 @theme{
   --default-font-family: "Open Sans";
 
+  --color-blue-base: #2C46B1;
+  --color-blue-dark: #2C4091;
+  
+  --color-write: #FFFFFF;
+  
+  --color-gray-100: #F9F9FB;
+  --color-gray-200: #E4E6EC;
+  --color-gray-300: #CDCFD5;
+  --color-gray-400: #74798B;
+  --color-gray-500: #4D505C;
+  --color-gray-600: #1F2025;
+
+  --color-danger: #B12C4D;
+}
+
+@layer components{
+  
+  .text-xl {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: bold;
+  }
+
+  .text-lg{
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+
+  .text-md {
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 600;
+  }
+
+  .text-sm {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 500;
+  }
+  
+  .text-xs {
+    font-size: 10px;
+    line-height: 14px;
+    font-weight: 400;
+  }
+    
 }
