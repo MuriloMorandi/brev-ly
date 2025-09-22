@@ -1,12 +1,11 @@
-import { createLink } from "@/app/functions/create-link";
 import { listLink } from "@/app/functions/list-links";
-import { isRight, unwrapEither } from "@/shared/either";
+import { unwrapEither } from "@/shared/either";
 import { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import z from "zod/v4";
 
 export const listLinkRoute: FastifyPluginAsyncZod = async (server) => {
     server.get(
-        "/",
+        "",
         {
             schema: {
                 summary: "List all links",
@@ -47,8 +46,8 @@ export const listLinkRoute: FastifyPluginAsyncZod = async (server) => {
                 pageSize
             });
 
-           const { data, total } = unwrapEither(result);
-
+            const { data, total } = unwrapEither(result);
+            
             return reply.send({
                 data,
                 total

@@ -5,13 +5,13 @@ import z from "zod/v4";
 
 export const updateAccessCountLinkRoute: FastifyPluginAsyncZod = async (server) => {
     server.patch(
-        "/",
+        "/:id",
         {
             schema: {
                 summary: "Update access count",
                 description: "Increments the access count of a shortened link.",
                 tags: ["Links"],
-                querystring: z.object({
+                params: z.object({
                     id: z.uuid()
                 }),
                  response: {
@@ -29,7 +29,7 @@ export const updateAccessCountLinkRoute: FastifyPluginAsyncZod = async (server) 
             }
         },
         async (request, reply) => {
-            const { id } = request.query;
+            const { id } = request.params;
 
             const result = await updateAccessCountLink({ id });
 

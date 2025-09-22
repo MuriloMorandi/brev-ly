@@ -5,7 +5,7 @@ import z from "zod/v4";
 
 export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
     server.post(
-        "/",
+        "",
         {
             schema: {
                 summary: "Create a new link",

@@ -10,6 +10,7 @@ import { listLinkRoute } from './routes/list-link-route';
 import { deleteLinkRoute } from './routes/delete-link-route';
 import { updateAccessCountLinkRoute } from './routes/update-acess-count-link-route';
 import { exportLinkRoute } from './routes/export-link-route';
+import { getLinkByShortUrlRoute } from './routes/get-link-by-short-url-route';
 
 const server = fastify()
 
@@ -45,14 +46,17 @@ server.register(fastifySwaggerUi, {
 });
 
 server.register(fastifyCors, {
-    origin: '*',
+  origin: '*',
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"]
 })
 
 server.register(createLinkRoute, { prefix: '/links' })
 server.register(listLinkRoute, { prefix: '/links' })
-server.register(deleteLinkRoute, { prefix: '/links' })
-server.register(updateAccessCountLinkRoute, { prefix: '/links' })
+server.register(getLinkByShortUrlRoute, { prefix: '/link' })
 server.register(exportLinkRoute, { prefix: '/links' })
+server.register(updateAccessCountLinkRoute, { prefix: '/links' })
+server.register(deleteLinkRoute, { prefix: '/links' })
+
 
 
 server.listen({ port: env.PORT, host: '0.0.0.0' }).then(val => {
