@@ -1,3 +1,4 @@
+import { SpinnerIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants"
 
@@ -32,6 +33,7 @@ type ButtonProps = ComponentProps<"button"> &
     VariantProps<typeof buttonVariants> & 
     {
         children?: React.ReactNode
+        loading?: boolean
     };
     
 export function Button({
@@ -39,15 +41,22 @@ export function Button({
     typeButton,
     disabled,
     className,
+    loading,
     ...props
- }:ButtonProps) {
+ }: ButtonProps) {
     return (
         <button
             className={buttonVariants({ typeButton, disabled, className })}
             {...props}
         >
-            {children}
-            <span>{props["aria-label"]}</span>
+            {!loading ? (
+                <>
+                    {children}
+                    <span>{props["aria-label"]}</span>
+                </>
+            ) : (
+                <SpinnerIcon className="animate-spin h-5 w-5" />
+            )}
         </button>
     )
 }

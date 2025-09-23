@@ -35,9 +35,10 @@ type InputProps = ComponentProps<'input'> &
   VariantProps<typeof inputVariants> & {
     title?: string
     errorMessage?: string
+    prefix?: string
   }
 
-export function Input({ title, errorMessage, className,  ...props }: InputProps) {
+export function Input({ title, errorMessage, prefix, className,  ...props }: InputProps) {
   const error = !!errorMessage
   return (
     <div className="flex flex-col group">
@@ -48,9 +49,9 @@ export function Input({ title, errorMessage, className,  ...props }: InputProps)
       </p>
       <input className={inputVariants({ error, className })} {...props}/>
       {errorMessage ?
-        <p className="text-danger text-sm">
-            {errorMessage}
-        </p> : undefined}
+      <p className="text-danger text-sm">
+          {errorMessage}
+      </p> : undefined}
     </div>
   )
 }

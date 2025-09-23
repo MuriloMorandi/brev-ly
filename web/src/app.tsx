@@ -1,15 +1,22 @@
-import { LinkForm } from "./components/link-form";
-import { LinkList } from "./components/link-list";
+import { BrowserRouter, Route, Routes} from 'react-router';
+import { LayoutMain } from './layouts/layout-main';
+import { HomePage } from './pages/home-page';
+import { NotFoundPage } from './pages/not-found-page';
+import { RedirectPage } from './pages/redirect-page';
+
 
 export function App() {
 
   return (
-    <main className="h-dvh flex-col items-center justify-center p-10">
-      <div className="flex flex-row gap-3">
-        <LinkForm />
-        <LinkList/>
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<LayoutMain/>}>
+          <Route path='/home' element={<HomePage/>}/>
+          <Route path='/:shortUrl' element={<RedirectPage/>}/>
+          <Route path='/notFound/:shortUrl' element={<NotFoundPage/>}/>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
