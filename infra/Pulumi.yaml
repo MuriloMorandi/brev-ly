@@ -1,0 +1,10 @@
+name: brev-ly
+description: Projeto IAC Desafio 01 Pós Graduação Full Stack Developer
+runtime:
+  name: nodejs
+  options:
+    packagemanager: pnpm
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: aws-typescript
