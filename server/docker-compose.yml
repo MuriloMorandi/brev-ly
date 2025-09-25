@@ -1,5 +1,7 @@
+name: brev-ly
 services:
   postgres-database:
+    container_name: postgres-database
     image: postgres:17
     environment:
       POSTGRES_USER: user

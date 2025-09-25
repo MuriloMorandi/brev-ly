@@ -22,7 +22,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.11.0",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.887.0",
     "@aws-sdk/lib-storage": "^3.887.0",
@@ -48,5 +47,9 @@
     "typescript": "^5.9.2",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.2.4"
-  }
+  },
+  "engines": {
+    "node": "22.16.0"
+  },
+  "packageManager": "pnpm@10.11.0"
 }
