@@ -15,17 +15,8 @@ const ecr = new aws.ecr.Repository("brevly-ecr", {
     }
 });
 
-const ecrServer = new aws.ecr.Repository("brevly-ecr-server", {
-    name: 'brevly-ecr-server',
-    imageTagMutability: 'IMMUTABLE',
-    tags: {
-        IAC: "true",
-    }
-});
 
 export const bucketName = bucket.id;
 
 export const ecrName = ecr.name;
 export const ecrRepositoryUrl = ecr.repositoryUrl;
-export const ecrServerName = ecrServer.name;
-export const ecrServerRepositoryUrl = ecrServer.repositoryUrl;
