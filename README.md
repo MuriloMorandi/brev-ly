@@ -2,7 +2,7 @@
 
 Brev-ly é um encurtador de links. Este projeto tem como objetivo uma aplicação que permita o cadastro,
 listagem e remoção de links encurtados, geração de relatório dos acessos de cada links e também o
-redirecionamento correto do link encurtado para o link original,
+redirecionamento correto do link encurtado para o link original.
 
 ---
 
