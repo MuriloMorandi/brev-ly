@@ -1,7 +1,7 @@
-name: Pulumi - Update Infrastructure
+name: Pulumi - Preview Infrastructure Changes
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:
@@ -42,7 +42,7 @@ jobs:
         id: run-pulumi
         uses: pulumi/actions@v6
         with:
-          command: up
+          command: preview
           stack-name: MuriloMorandi/stg
           work-dir: infra
         env:
