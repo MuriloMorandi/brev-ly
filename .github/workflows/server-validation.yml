@@ -1,22 +1,47 @@
-name: Server Teste
+name: Server Validation
 
 on:
-  push:
-    branches:
-      - master
-    paths:
-      - 'server/**'
   pull_request:
     branches:
       - master
     types: [opened, reopened, labeled, unlabeled, synchronize]
     paths:
-      - 'server/**'
+      - "server/**"
+  workflow_dispatch:
 
 jobs:
+  build-server:
+    name: Run build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          version: 10
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: server/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: server
+
+      - name: Build project
+        run: pnpm run build
+        working-directory: server
+
   test-server:
     name: Run Tests
     runs-on: ubuntu-latest
+    needs: build-server
 
     services:
       postgres:
@@ -52,7 +77,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         working-directory: server
-        
+
       - name: Run test
         run: pnpm run test
         working-directory: server
