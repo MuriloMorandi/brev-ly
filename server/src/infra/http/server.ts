@@ -11,6 +11,8 @@ import { deleteLinkRoute } from './routes/delete-link-route';
 import { updateAccessCountLinkRoute } from './routes/update-acess-count-link-route';
 import { exportLinkRoute } from './routes/export-link-route';
 import { getLinkByShortUrlRoute } from './routes/get-link-by-short-url-route';
+import { healthCheckRoute } from './routes/health-check';
+import { log } from '@/shared/logger';
 
 const server = fastify()
 
@@ -18,17 +20,17 @@ server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
 
 server.setErrorHandler((error, request, reply) => {
-    if (hasZodFastifySchemaValidationErrors(error))
-    {
-        return reply.status(400).send({
-            message: 'Validation error',
-            issues: error.validation,
-        });
-    }
+  if (hasZodFastifySchemaValidationErrors(error))
+  {
+    return reply.status(400).send({
+      message: 'Validation error',
+      issues: error.validation,
+    });
+  }
 
-    console.error(error);
+  console.error(error);
 
-    return reply.status(500).send({ message: 'Internal server error.' });
+  return reply.status(500).send({ message: 'Internal server error.' });
 });
 
 server.register(fastifySwagger, {
@@ -57,9 +59,9 @@ server.register(exportLinkRoute, { prefix: '/links' })
 server.register(updateAccessCountLinkRoute, { prefix: '/links' })
 server.register(deleteLinkRoute, { prefix: '/links' })
 
-
+server.register(healthCheckRoute, { prefix: '/' })
 
 server.listen({ port: env.PORT, host: '0.0.0.0' }).then(val => {
-    console.log('HTTP Server running!');
-    console.log(`Docs: http://localhost:${env.PORT}/docs`);
+  log.info('HTTP Server running!');
+  log.info(`Docs: http://localhost:${env.PORT}/docs`);
 });
