@@ -1,7 +1,7 @@
 import { LinkForm } from "../components/link-form";
 import { LinkList } from "../components/link-list";
 import { LinkProvider } from "../context/links-context";
-import Logo_Icon from '../assets/logo_Icon.svg';
+import Logo_Icon from '../assets/logo_icon.svg';
 
 export function HomePage() {
     return (

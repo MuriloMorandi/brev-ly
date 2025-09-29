@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams  } from "react-router";
-import LogoIcon from '../assets/Logo_Icon.svg';
+import LogoIcon from '../assets/logo_icon.svg';
 import { api } from "../libs/api";
 
 export function RedirectPage() {
