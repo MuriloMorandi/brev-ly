@@ -27,21 +27,23 @@ export function ListItem({ link}: { link:ListItem }){
     return(
         <div 
             key={link.id} 
-            className="h-[42px] border-t-2 border-gray-200 flex items-center gap-5"
+            className="h-auto p-2 border-t-2 border-gray-200 flex flex-row md:items-center md:gap-5 gap-2 "
         >
-            <div className="w-full">
+            <div className="flex-1 min-w-0">
                 <NavLink
                     to={`/${link.shortUrl}`}
-                    className="text-md text-blue-base"
-                >
+                    className="text-md text-blue-base truncate hover:underline block"
+                > 
                     {link.shortUrl}
                 </NavLink>
-                <p className="text-sm text-gray-500">{link.url}</p>
+                <p className="text-sm text-gray-500 truncate">
+                    {link.url}
+                </p>
             </div>
-            <div className="w-fit">
-                <p className="whitespace-nowrap tabular-nums">{link.accessCount} acessos</p>
+            <div className="shrink-0">
+                <p className="whitespace-nowrap tabular-nums text-sm text-gray-500">{link.accessCount} acessos</p>
             </div>
-            <div className="flex gap-1">
+            <div className="flex gap-2 md:gap-1">
                 <ButtonIcon 
                     onClick={()=>{navigator.clipboard.writeText(link.url)}}
                 >

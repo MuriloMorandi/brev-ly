@@ -7,7 +7,7 @@ type ButtonIconProps = ComponentProps<"button"> & {
 export function ButtonIcon({className, children, ...props }: ButtonIconProps){
     return(
         <button 
-            className='h-8 w-8 flex items-center justify-center rounded-sm bg-gray-200 px-2 text-gray-500 hover:border-1 hover:border-blue-dark cursor-pointer'
+            className={`h-8 w-8 flex items-center justify-center rounded-sm bg-gray-200 px-2 text-gray-500 hover:border-1 hover:border-blue-dark cursor-pointer ${className}`}
             {...props}
             >
             {children}

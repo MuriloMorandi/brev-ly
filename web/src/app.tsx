@@ -10,8 +10,8 @@ export function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<LayoutMain/>}>
-          <Route path='/home' element={<HomePage/>}/>
+        <Route element={<LayoutMain />}>
+          <Route path='/' element={<HomePage/>}/>
           <Route path='/:shortUrl' element={<RedirectPage/>}/>
           <Route path='/notFound/:shortUrl' element={<NotFoundPage/>}/>
         </Route>

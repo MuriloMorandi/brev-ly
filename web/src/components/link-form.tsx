@@ -40,7 +40,7 @@ export function LinkForm() {
 
     return (
         <div
-            className="flex flex-col gap-4 bg-gray-100 overflow-hidden w-[380px] rounded-lg p-8"            
+            className="flex flex-col gap-4 bg-gray-100 overflow-hidden w-full md:w-[380px] rounded-lg p-8"
         >
             <p className="text-lg text-gray-600">Novo link</p>
             
