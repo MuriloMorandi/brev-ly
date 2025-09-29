@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes} from 'react-router';
+import { BrowserRouter, Route, Routes} from 'react-router';
 import { LayoutMain } from './layouts/layout-main';
 import { HomePage } from './pages/home-page';
 import { NotFoundPage } from './pages/not-found-page';
