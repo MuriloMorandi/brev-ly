@@ -1,9 +1,6 @@
 export const downloadUrl = async (url: string) => {
     try
     {
-        const response = await fetch(url, { mode: "no-cors" });
-        const blob = await response.blob();
-
         const link = document.createElement("a");
 
         const urlObj = new URL(url);
@@ -18,7 +15,7 @@ export const downloadUrl = async (url: string) => {
             throw new Error("URL does not contain a valid filename");
         }
 
-        link.href = window.URL.createObjectURL(blob);
+        link.href = url;
         link.download = filename;
         document.body.appendChild(link);
         link.click();
