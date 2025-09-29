@@ -2,7 +2,6 @@ import { SpinnerIcon } from "@phosphor-icons/react";
 import type { ComponentProps } from "react";
 import { tv, type VariantProps } from "tailwind-variants"
 
-
 const buttonVariants = tv({
     base: `
         flex
