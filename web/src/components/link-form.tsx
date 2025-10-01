@@ -9,7 +9,9 @@ import { Input } from "./ui/input";
 
 const createLinkSchema = z.object({
     url: z.url('Informe uma url válida.'),
-    shortUrl: z.string().trim().min(1, "Informe uma url minúscula e sem espaço/caracter especial."),
+    shortUrl: z.string().trim()
+        .min(1, "Informe uma url minúscula e sem espaço/caracter especial.")
+        .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Informe uma url minúscula e sem espaço/caracter especial."),
 });
 
 type CreateLinkSchema = z.infer<typeof createLinkSchema>
