@@ -1,7 +1,6 @@
 import { CopyIcon, TrashIcon } from "@phosphor-icons/react";
 import { NavLink } from "react-router";
 import { useLinks } from "../context/links-context";
-import { api } from "../libs/api";
 import { ButtonIcon } from "./ui/button-icon";
 
 type ListItem = {
@@ -14,20 +13,16 @@ type ListItem = {
 }
 
 export function ListItem({ link}: { link:ListItem }){
-    const { fetchLinks } = useLinks();
+    const { deleteLink, loading } = useLinks();
 
     const handleRemove = ()=>{
-        api.delete(`links/${link.id}`)
-            .then(()=>{
-                fetchLinks()
-            })
-            .catch((error)=>console.log(error))
+        deleteLink(link.id);
     }
 
     return(
         <div 
             key={link.id} 
-            className="h-auto p-2 border-t-2 border-gray-200 flex flex-row md:items-center md:gap-5 gap-2 "
+            className="h-auto p-1 md:p-2 border-t-2 border-gray-200 flex flex-row md:items-center md:gap-5 gap-2"
         >
             <div className="flex-1 min-w-0">
                 <NavLink
@@ -36,20 +31,24 @@ export function ListItem({ link}: { link:ListItem }){
                 > 
                     {link.shortUrl}
                 </NavLink>
-                <p className="text-sm text-gray-500 truncate">
+                <p className="text-xs md:text-sm text-gray-500 truncate">
                     {link.url}
                 </p>
             </div>
-            <div className="shrink-0">
+            <div className="shrink-0 flex items-center">
                 <p className="whitespace-nowrap tabular-nums text-sm text-gray-500">{link.accessCount} acessos</p>
             </div>
-            <div className="flex gap-2 md:gap-1">
+            <div className="flex items-center gap-1 md:gap-2">
                 <ButtonIcon 
-                    onClick={()=>{navigator.clipboard.writeText(link.url)}}
+                    onClick={() => { navigator.clipboard.writeText(link.url) }}
+                    disabled={loading}
                 >
                     <CopyIcon className="text-gray-600"/>
                 </ButtonIcon>
-                <ButtonIcon onClick={handleRemove}>
+                <ButtonIcon
+                    onClick={handleRemove}
+                    disabled={loading}
+                >
                     <TrashIcon className="text-gray-600"/>
                 </ButtonIcon>
             </div>

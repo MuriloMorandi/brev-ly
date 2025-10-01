@@ -1,4 +1,4 @@
-import { createContext, type ReactNode, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { api } from "../libs/api";
 import { downloadUrl } from "../utils/download-url";
 
@@ -20,6 +20,7 @@ interface LinkContextType {
     error: string | null;
     fetchLinks: () => Promise<void>;
     exportCSV: () => Promise<void>;
+    deleteLink: (id: string) => Promise<void>;
 }
 
 export const LinkContext = createContext<LinkContextType | undefined>(undefined);
@@ -61,9 +62,25 @@ export function LinkProvider ({ children }: LinkProviderProps){
         })
     }
 
-    
+    const deleteLink = async (id: string) => {
+        setLoading(true);
+        api.delete(`links/${id}`)
+            .then(()=>{
+                fetchLinks()
+            })
+            .catch((error) => console.log(error))
+            .finally(() => {
+                setLoading(false)
+            })
+    }
+
+    const value = useMemo(
+        () => ({ links, error, loading, fetchLinks, exportCSV, deleteLink }),
+        [links, error, loading]
+    );
+
     return (
-        <LinkContext.Provider value={{links, error, loading, fetchLinks, exportCSV}}>
+        <LinkContext.Provider value={value}>
             {children}
         </LinkContext.Provider>
     )

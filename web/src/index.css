@@ -18,7 +18,7 @@
   --color-danger: #B12C4D;
 }
 
-@layer components{
+@layer utilities{
   
   .text-xl {
     font-size: 24px;

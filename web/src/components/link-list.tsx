@@ -16,14 +16,14 @@ export function LinkList() {
         <div 
             className="bg-gray-100 overflow-hidden w-full rounded-lg p-8 flex flex-col gap-4"
         >
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
                 <p className="text-lg text-gray-600">Meus links</p>
                 <Button
                     typeButton="secondary"
                     className="h-[32px] w-fit"
                     aria-label="Baixar CSV"
                     onClick={exportCSV}
-                    disabled={!links.total}
+                    disabled={!links.total || loading}
                 >
                     <DownloadSimpleIcon className="text-gray-600"/>
                 </Button>
