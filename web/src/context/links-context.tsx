@@ -57,12 +57,15 @@ export function LinkProvider ({ children }: LinkProviderProps){
     }
 
     const exportCSV = async ()=>{
-        if(!links.total) return;
+        if (!links.total) return;
+        setLoading(true);
         
         api.get('links/export')
-            .then(async ({ data })=>{
+            .then(async ({ data }) => {
                 await downloadUrl(data.reportUrl)
-        })
+            }).finally(() => {
+                setLoading(false)
+            });
     }
 
     const deleteLink = async (id: string) => {
