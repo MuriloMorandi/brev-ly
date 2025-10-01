@@ -14,9 +14,9 @@ export function LinkList() {
 
     return (
         <div 
-            className="bg-gray-100 overflow-hidden w-full rounded-lg p-8 flex flex-col gap-4"
+            className="bg-gray-100 overflow-hidden w-full rounded-lg p-8 flex flex-col"
         >
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-4">
                 <p className="text-lg text-gray-600">Meus links</p>
                 <Button
                     typeButton="secondary"
