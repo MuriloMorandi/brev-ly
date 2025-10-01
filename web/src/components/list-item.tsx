@@ -17,7 +17,7 @@ export function ListItem({ link}: { link:ListItem }){
     const { fetchLinks } = useLinks();
 
     const handleRemove = ()=>{
-        api.delete(`links?id=${link.id}`)
+        api.delete(`links/${link.id}`)
             .then(()=>{
                 fetchLinks()
             })
