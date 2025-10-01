@@ -49,7 +49,7 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
             <div
               key={n.id}
               className={`px-4 py-3 rounded-lg shadow-lg text-white transition-all duration-300 ${
-                n.type === "success" ? "bg-green-500" : "bg-red-500"
+                n.type === "success" ? "bg-blue-base" : "bg-red-500"
               }`}
             >
               {n.message}
