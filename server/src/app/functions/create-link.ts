@@ -7,7 +7,9 @@ import { AlreadyExistsError } from "./errors/already-exists";
 
 const createLinkInputSchema = z.object({
     url: z.url(),
-    shortUrl: z.string().trim().min(1, "Short URL cannot be empty"),
+    shortUrl: z.string().trim()
+        .min(1, "Short URL cannot be empty")
+        .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Short URL must be lowercase and contain no spaces/special characters."),
 });
 
 type CreateLinkInput = z.infer<typeof createLinkInputSchema>;
@@ -21,7 +23,8 @@ export async function createLink(
         where: eq(links.shortUrl, shortUrl)
     });
 
-    if (existingLink) {
+    if (existingLink)
+    {
         return makeLeft(new AlreadyExistsError())
     }
 

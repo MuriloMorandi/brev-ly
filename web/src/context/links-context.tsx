@@ -1,6 +1,7 @@
-import { createContext, type ReactNode, useContext, useState } from "react";
+import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { api } from "../libs/api";
 import { downloadUrl } from "../utils/download-url";
+import { useNotification } from "./notification-context";
 
 export type ListLinksGet = {
     data: {
@@ -20,6 +21,7 @@ interface LinkContextType {
     error: string | null;
     fetchLinks: () => Promise<void>;
     exportCSV: () => Promise<void>;
+    deleteLink: (id: string) => Promise<void>;
 }
 
 export const LinkContext = createContext<LinkContextType | undefined>(undefined);
@@ -32,6 +34,7 @@ export function LinkProvider ({ children }: LinkProviderProps){
     const [links, setLinks] = useState<ListLinksGet>({ data:[], total:0 });
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const { showNotification } = useNotification();
 
     const fetchLinks = async () => {
         setLoading(true);
@@ -47,23 +50,46 @@ export function LinkProvider ({ children }: LinkProviderProps){
             })
             .catch((error)=>{
                 setError(error.toString());
+                showNotification(`Erro ao buscar links: ${error.toString()}`, 'error');
             }).finally(()=>{
                 setLoading(false)
             })
     }
 
     const exportCSV = async ()=>{
-        if(!links.total) return;
+        if (!links.total) return;
+        setLoading(true);
         
         api.get('links/export')
-            .then(async ({ data })=>{
+            .then(async ({ data }) => {
                 await downloadUrl(data.reportUrl)
-        })
+            }).finally(() => {
+                setLoading(false)
+            });
     }
 
-    
+    const deleteLink = async (id: string) => {
+        setLoading(true);
+        api.delete(`links/${id}`)
+            .then(() => {
+                fetchLinks();
+                showNotification('Link deletado com sucesso!', 'success');
+            })
+            .catch((error) => {
+                showNotification(`Erro ao deletar link: ${error.toString()}`, 'error');
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+    }
+
+    const value = useMemo(
+        () => ({ links, error, loading, fetchLinks, exportCSV, deleteLink }),
+        [links, error, loading]
+    );
+
     return (
-        <LinkContext.Provider value={{links, error, loading, fetchLinks, exportCSV}}>
+        <LinkContext.Provider value={value}>
             {children}
         </LinkContext.Provider>
     )

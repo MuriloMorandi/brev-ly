@@ -30,14 +30,15 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
             }
         },
         async (request, reply) => {
-            const { shortUrl, url} = request.body;
-            
+            const { shortUrl, url } = request.body;
+
             const result = await createLink({
                 shortUrl,
                 url
             });
 
-            if(isRight(result)) {
+            if (isRight(result))
+            {
                 return reply.status(201).send({
                     message: result.right.message
                 });
@@ -45,11 +46,12 @@ export const createLinkRoute: FastifyPluginAsyncZod = async (server) => {
 
             const erro = unwrapEither(result);
 
-            switch(erro.constructor.name) {
+            switch (erro.constructor.name)
+            {
                 case "AlreadyExistsError":
                     return reply.status(409).send({
                         message: "Short URL already exists",
-                        issues: ['short_url']
+                        issues: ['shortUrl']
                     });
                 default:
                     return reply.status(500).send({
