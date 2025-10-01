@@ -6,6 +6,8 @@ import { useLinks } from "../context/links-context";
 import { api } from "../libs/api";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useNotification } from "../context/notification-context";
+import type { AxiosError } from "axios";
 
 const createLinkSchema = z.object({
     url: z.url('Informe uma url válida.'),
@@ -22,19 +24,38 @@ export function LinkForm() {
         handleSubmit,
         reset,
         formState: { errors },
+        setError,
     } = useForm<CreateLinkSchema>({
         resolver: zodResolver(createLinkSchema),  
     })
     const { fetchLinks } = useLinks();
     const [loading, setLoading] = useState(false);
+    const { showNotification } = useNotification();
 
     const handleForm = (data: CreateLinkSchema)=>{
         setLoading(true);
         api.post('links', data).then(()=>{
             reset();
-            fetchLinks()
-        }).catch((erro)=>{
-            console.error(erro)
+            showNotification('Link criado com sucesso!', 'success');
+            fetchLinks();
+        }).catch(({ response, status}: AxiosError) => {
+            if (status === 409 || status === 400)
+            {
+                const data = response?.data as {
+                    message: string;
+                    issues: (keyof CreateLinkSchema)[]
+                };
+
+                const message = data.message === 'Short URL already exists'
+                    ? 'O link encurtado já existe.'
+                    : data.message;
+                
+                const field = data.issues[0];
+
+                setError(field, { message });
+            }
+            console.error('');
+                
         }).finally(()=>{
             setLoading(false);
         })

@@ -1,6 +1,7 @@
 import { createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import { api } from "../libs/api";
 import { downloadUrl } from "../utils/download-url";
+import { useNotification } from "./notification-context";
 
 export type ListLinksGet = {
     data: {
@@ -33,6 +34,7 @@ export function LinkProvider ({ children }: LinkProviderProps){
     const [links, setLinks] = useState<ListLinksGet>({ data:[], total:0 });
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
+    const { showNotification } = useNotification();
 
     const fetchLinks = async () => {
         setLoading(true);
@@ -48,6 +50,7 @@ export function LinkProvider ({ children }: LinkProviderProps){
             })
             .catch((error)=>{
                 setError(error.toString());
+                showNotification(`Erro ao buscar links: ${error.toString()}`, 'error');
             }).finally(()=>{
                 setLoading(false)
             })
@@ -65,10 +68,13 @@ export function LinkProvider ({ children }: LinkProviderProps){
     const deleteLink = async (id: string) => {
         setLoading(true);
         api.delete(`links/${id}`)
-            .then(()=>{
-                fetchLinks()
+            .then(() => {
+                fetchLinks();
+                showNotification('Link deletado com sucesso!', 'success');
             })
-            .catch((error) => console.log(error))
+            .catch((error) => {
+                showNotification(`Erro ao deletar link: ${error.toString()}`, 'error');
+            })
             .finally(() => {
                 setLoading(false)
             })
