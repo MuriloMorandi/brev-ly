@@ -2,7 +2,7 @@
 
 ## Funcionalidade e Regras
 
-- [ ] Deve ser possível criar um link
+- [x] Deve ser possível criar um link
   - [ ] Não deve ser possível criar um link com encurtamento mal formatado
   - [ ] Não deve ser possível criar um link com encurtamento já existente
 - [ ] Deve ser possível deletar um link
