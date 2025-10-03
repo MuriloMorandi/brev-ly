@@ -14,7 +14,7 @@ export function HomePage() {
                     loading="lazy"
                 />
                 <span className="text-2xl font-bold text-blue-base md:text-center">
-                    Brev.ly
+                    Brev.ly teste
                 </span>
             </div>
             
