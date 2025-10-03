@@ -6,6 +6,9 @@ on:
       - master
     paths:
       - "web/**"
+  pull_request:
+    branches:
+      - master
 
   workflow_dispatch:
 
@@ -19,29 +22,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-        id: checkout
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Install Node.js
-        uses: actions/setup-node@v4
+      - name: Deploy to Vercel Action
+        uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
-          node-version: 22
-          cache-dependency-path: web/pnpm-lock.yaml
-
-      - name: Install vercel
-        run: npm install --global vercel@latest
-
-      - name: Pull vercel config
-        id: pull-vercel-config
-        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: web
-
-      - name: Build app
-        id: build-app
-        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: web
-
-      - name: Deploy app
-        id: deploy-app
-        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
-        working-directory: web
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          PRODUCTION: true
+          WORKING_DIRECTORY: ./web
