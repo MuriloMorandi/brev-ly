@@ -8,7 +8,6 @@ redirecionamento correto do link encurtado para o link original.
 
 ## Índice
 
-- [Arquitetura / Tecnologias](#arquitetura--tecnologias)
 - [Instalação e Uso](#instalação-e-uso)
   - [Pré-requisitos](#pré-requisitos)
   - [Configurando Ambiente](#configurando-ambiente)
