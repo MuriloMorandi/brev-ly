@@ -68,5 +68,5 @@ jobs:
         working-directory: web
 
       - name: Deploy Project Artifacts to Vercel Preview
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod=false --confirm
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod=false --yes
         working-directory: web
