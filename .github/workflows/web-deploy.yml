@@ -9,6 +9,8 @@ on:
   pull_request:
     branches:
       - master
+    paths:
+      - "web/**"
 
   workflow_dispatch:
 
