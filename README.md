@@ -1,21 +1,21 @@
 # Brev-ly
 
+<div align="center">
+  <img src="web\public\logo_icon.svg" alt="Logo" width="100" />
+</div>
+
 Brev-ly é um encurtador de links. Este projeto tem como objetivo uma aplicação que permita o cadastro,
 listagem e remoção de links encurtados, geração de relatório dos acessos de cada links e também o
 redirecionamento correto do link encurtado para o link original.
 
----
-
 ## Índice
 
-- [Arquitetura / Tecnologias](#arquitetura--tecnologias)
 - [Instalação e Uso](#instalação-e-uso)
   - [Pré-requisitos](#pré-requisitos)
   - [Configurando Ambiente](#configurando-ambiente)
   - [Rodando localmente](#rodando-localmente)
   - [Rodando os teste](#rodando-os-testes)
 
----
 
 ## Instalação e Uso
 
@@ -50,19 +50,28 @@ Antes de começar, certifique-se de ter:
 
 3. Configure variáveis de ambiente necessárias:
 
-   Crie o `.env` com base no `server/.env.example` adicionando suas credenciais ee configurações
+   - **Servidor (backend):**  
+     Crie o arquivo `.env` na pasta `server/` com base no `server/.env.example`, adicionando suas credenciais e configurações:
 
-   ```bash
-    #/server/.env.example
-    PORT=
-    DATABASE_URL=
+     ```bash
+     # server/.env
+     PORT=
+     DATABASE_URL=
 
-    CLOUDFLARE_ACCOUNT_ID=""
-    CLOUDFLARE_ACCESS_KEY_ID=""
-    CLOUDFLARE_SECRET_ACCESS_KEY=""
-    CLOUDFLARE_BUCKET=""
-    CLOUDFLARE_PUBLIC_URL=""
-   ```
+     CLOUDFLARE_ACCOUNT_ID=""
+     CLOUDFLARE_ACCESS_KEY_ID=""
+     CLOUDFLARE_SECRET_ACCESS_KEY=""
+     CLOUDFLARE_BUCKET=""
+     CLOUDFLARE_PUBLIC_URL=""
+     ```
+
+   - **Frontend:**  
+     Crie o arquivo `.env` na pasta `web/` com base no `web/.env.example`:
+
+     ```bash
+     # web/.env
+     VITE_API_URL=
+     ```
 
 4. Inicie os serviços localmente no Docker
 
@@ -79,22 +88,22 @@ Antes de começar, certifique-se de ter:
 
 1. Rode frontend e backend separadamente:
 
+ - **Servidor (backend):**  
    ```bash
-   # backend
    cd server
    pnpm run dev
+   ```
 
-   # frontend
+- **rontend:**  
+   ```bash
    cd web
    pnpm run dev
    ```
 
 ### Rodando os testes
 
-1. Rodando os testes
-
+- **Servidor (backend):**  
    ```bash
-   # backend
    cd server
    pnpm run test
    ```
