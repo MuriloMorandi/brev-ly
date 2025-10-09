@@ -73,32 +73,33 @@ Antes de começar, certifique-se de ter:
      VITE_API_URL=
      ```
 
-4. Inicie os serviços localmente no Docker
+4. Inicie os serviços localmente no Docker e executar as migrations
 
-   ```bash
-   # inicializar o container docker
-   cd server
-   docker compose up -d
-
-   # Roda as migrations do banco de dados
-   pnpm run db:migrate
-   ```
+   - Inicie os serviços necessários em segundo plano com o Docker:
+      ```bash
+      cd server
+      docker compose up -d
+      ```
+   - Após os containers estarem em execução, rode as migrations para aplicar as alterações no banco de dados:
+      ```bash
+      pnpm run db:migrate
+      ```
 
 ### Rodando localmente
 
 1. Rode frontend e backend separadamente:
 
- - **Servidor (backend):**  
-   ```bash
-   cd server
-   pnpm run dev
-   ```
+   - **Servidor (backend):**  
+      ```bash
+      cd server
+      pnpm run dev
+       ```
 
-- **rontend:**  
-   ```bash
-   cd web
-   pnpm run dev
-   ```
+   - **Frontend:**  
+      ```bash
+      cd web
+      pnpm run dev
+      ```
 
 ### Rodando os testes
 
